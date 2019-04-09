@@ -3,23 +3,23 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "appName": {
-      "value": "ascwebapp"
+      "value": "ascsamplewebapp"
     },
     "appServiceTier": {
       "value": "Standard"
+    }, 
+    "applicationId": {
+      "value": null
     },
-	"applicationId": {
-      "value": "GEN-UNIQUE"
-    },
-	"appPassword": {
+    "appPassword": {
       "value": "GEN-PASSWORD"
     },
     "newOrExisting": {
       "value": "new"
     },
-	"storageAccountName": {
-	  "value": "asc"		
-	},
+    "storageAccountName": {
+      "value": "asc"		
+    },
     "sendGridApiKey": {
       "value": "GEN-PASSWORD"
     },
@@ -31,9 +31,6 @@
     },
     "adminEmailAddress": {
       "value": "Admin Email address"
-    },
-	"packageUri": {
-      "value": "GEN-UNIQUE"
     }
   }
 }
