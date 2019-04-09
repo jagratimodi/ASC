@@ -31,19 +31,19 @@
         "description": "Worker Size( 0=Small, 1=Medium, 2=Large )"
       }
     },
-	"applicationId": {
+    "applicationId": {
       "type": "string",
       "metadata": {
         "description": "Application Id of registered Web App"
       }
     },
-	"appPassword": {
+    "appPassword": {
       "type": "securestring",
       "metadata": {
         "description": "Password of registered Web App"
       }
     },
-	"storageAccountName": {
+    "storageAccountName": {
       "type": "string",
       "minLength": 1,
       "metadata": {
@@ -63,7 +63,7 @@
         "description": "Storage Account Type : Standard-LRS, Standard-GRS,Standard-RAGRS,Standard-ZRS"
       }
     },
-	"newOrExisting": {
+    "newOrExisting": {
       "type": "string",
       "allowedValues": [
         "new",
@@ -73,7 +73,7 @@
         "description": "Storage Account already exists or not."
       }
     },
-	"notificationFromEmailAddress": {
+    "notificationFromEmailAddress": {
       "type": "string",
       "metadata": {
         "description": "Email address."
@@ -93,30 +93,16 @@
         "description": "Admin Email address."
       }
     },
-	"sendGridApiKey": {
+    "sendGridApiKey": {
       "type": "securestring",
       "metadata": {
         "description": "Send Grid API key."
       }
     },
-    "location": {
-      "type": "string",
-      "defaultValue": "[resourceGroup().location]",
-      "metadata": {
-        "description": "Location for all resources."
-      }
-    },
     "ascAppId": {
       "type": "string",
-      "defaultValue": "[newGuid()]",
       "metadata": {
         "description": "ASC unique Id."
-      }
-    },
-    "packageUri": {
-      "type": "string",
-      "metadata": {
-        "description": "URL where build is kept."
       }
     },
     "repoUrl": {
@@ -129,14 +115,14 @@
   "variables": {
     "updatedStorageAccountName": "[concat(uniquestring(resourceGroup().id), parameters('storageAccountName'))]",
     "appServicePlanName": "[concat(parameters('appName'), 'serviceplan')]",
-	"appInsightsName": "[concat(parameters('appName'), '-appin')]"
+    "appInsightsName": "[concat(parameters('appName'), '-appin')]"
   },
   "resources": [
     {
       "type": "Microsoft.Storage/storageAccounts",
       "name": "[variables('updatedStorageAccountName')]",
       "apiVersion": "2018-07-01",
-      "location": "[parameters('location')]",
+      "location": "[resourceGroup().location]",
       "sku": {
         "name": "[parameters('storageAccountType')]"
       },
@@ -147,13 +133,13 @@
       "apiVersion": "2014-06-01",
       "name": "[variables('appServicePlanName')]",
       "type": "Microsoft.Web/serverFarms",
-      "location": "[parameters('location')]",
+      "location": "[resourceGroup().location]",
       "properties": {
         "name": "[variables('appServicePlanName')]",
         "appServiceTier": "[parameters('appServiceTier')]",
         "workerSize": "[parameters('appServiceWorkerSize')]"
       },
-	  "tags": {
+      "tags": {
         "displayName": "AppServiceHostingPlan"
       }
     },
@@ -177,7 +163,7 @@
       "apiVersion": "2015-02-01",
       "name": "[parameters('appName')]",
       "type": "Microsoft.Web/Sites",
-      "location": "[parameters('location')]",
+      "location": "[resourceGroup().location]",
       "tags": {
         "[concat('hidden-related:', '/subscriptions/', subscription().subscriptionId,'/resourcegroups/', resourceGroup().name, '/providers/Microsoft.Web/serverfarms/', variables('appServicePlanName'))]": "empty"
       },
@@ -199,7 +185,7 @@
             "[concat('Microsoft.Storage/storageAccounts/', variables('updatedStorageAccountName'))]"
           ],
           "properties": {
-            "packageUri": "[parameters('packageUri')]"
+            "packageUri": "[concat(parameters('repoUrl'), '/raw/', parameters('branch'), '/build/package.zip')]"
           }
         },
         {
@@ -214,15 +200,15 @@
           "properties": {
             "AdminEmailAddress": "Admin email address",
             "AscAppId": "[parameters('ascAppId')]",
-			"ida:ClientID": "[parameters('applicationId')]",
-			"ida:Password": "[parameters('appPassword')]",
+	    "ida:ClientID": "[parameters('applicationId')]",
+	    "ida:Password": "[parameters('appPassword')]",
             "iKey": "[reference(concat('microsoft.insights/components/', variables('appInsightsName'))).InstrumentationKey]",
             "NotificationFromEmailAddress": "[parameters('notificationFromEmailAddress')]",
             "NotificationFromName": "Service Catalog",
             "StorageAccountKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('updatedStorageAccountName')), '2015-05-01-preview').key1]",
             "StorageAccountName": "[variables('updatedStorageAccountName')]",
             "SendGridEndPoint": "https://api.sendgrid.com",
-			"SendGridApiKey": "[parameters('sendGridApiKey')]",
+	    "SendGridApiKey": "[parameters('sendGridApiKey')]",
           }
         },
 	{
