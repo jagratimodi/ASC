@@ -31,19 +31,19 @@
         "description": "Worker Size( 0=Small, 1=Medium, 2=Large )"
       }
     },
-	"applicationId": {
+    "applicationId": {
       "type": "string",
       "metadata": {
         "description": "Application Id of registered Web App"
       }
     },
-	"appPassword": {
+    "appPassword": {
       "type": "securestring",
       "metadata": {
         "description": "Password of registered Web App"
       }
     },
-	"storageAccountName": {
+    "storageAccountName": {
       "type": "string",
       "minLength": 1,
       "metadata": {
@@ -63,7 +63,7 @@
         "description": "Storage Account Type : Standard-LRS, Standard-GRS,Standard-RAGRS,Standard-ZRS"
       }
     },
-	"newOrExisting": {
+    "newOrExisting": {
       "type": "string",
       "allowedValues": [
         "new",
@@ -73,7 +73,7 @@
         "description": "Storage Account already exists or not."
       }
     },
-	"notificationFromEmailAddress": {
+    "notificationFromEmailAddress": {
       "type": "string",
       "metadata": {
         "description": "Email address."
@@ -93,7 +93,7 @@
         "description": "Admin Email address."
       }
     },
-	"sendGridApiKey": {
+    "sendGridApiKey": {
       "type": "securestring",
       "metadata": {
         "description": "Send Grid API key."
@@ -101,14 +101,12 @@
     },
     "location": {
       "type": "string",
-      "defaultValue": "[resourceGroup().location]",
       "metadata": {
         "description": "Location for all resources."
       }
     },
     "ascAppId": {
       "type": "string",
-      "defaultValue": "[newGuid()]",
       "metadata": {
         "description": "ASC unique Id."
       }
