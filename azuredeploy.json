@@ -99,12 +99,6 @@
         "description": "Send Grid API key."
       }
     },
-    "location": {
-      "type": "string",
-      "metadata": {
-        "description": "Location for all resources."
-      }
-    },
     "ascAppId": {
       "type": "string",
       "metadata": {
@@ -127,14 +121,14 @@
   "variables": {
     "updatedStorageAccountName": "[concat(uniquestring(resourceGroup().id), parameters('storageAccountName'))]",
     "appServicePlanName": "[concat(parameters('appName'), 'serviceplan')]",
-	"appInsightsName": "[concat(parameters('appName'), '-appin')]"
+    "appInsightsName": "[concat(parameters('appName'), '-appin')]"
   },
   "resources": [
     {
       "type": "Microsoft.Storage/storageAccounts",
       "name": "[variables('updatedStorageAccountName')]",
       "apiVersion": "2018-07-01",
-      "location": "[parameters('location')]",
+      "location": "[resourceGroup().location]",
       "sku": {
         "name": "[parameters('storageAccountType')]"
       },
@@ -145,7 +139,7 @@
       "apiVersion": "2014-06-01",
       "name": "[variables('appServicePlanName')]",
       "type": "Microsoft.Web/serverFarms",
-      "location": "[parameters('location')]",
+      "location": "[resourceGroup().location]",
       "properties": {
         "name": "[variables('appServicePlanName')]",
         "appServiceTier": "[parameters('appServiceTier')]",
@@ -175,7 +169,7 @@
       "apiVersion": "2015-02-01",
       "name": "[parameters('appName')]",
       "type": "Microsoft.Web/Sites",
-      "location": "[parameters('location')]",
+      "location": "[resourceGroup().location]",
       "tags": {
         "[concat('hidden-related:', '/subscriptions/', subscription().subscriptionId,'/resourcegroups/', resourceGroup().name, '/providers/Microsoft.Web/serverfarms/', variables('appServicePlanName'))]": "empty"
       },
@@ -212,8 +206,8 @@
           "properties": {
             "AdminEmailAddress": "Admin email address",
             "AscAppId": "[parameters('ascAppId')]",
-			"ida:ClientID": "[parameters('applicationId')]",
-			"ida:Password": "[parameters('appPassword')]",
+	    "ida:ClientID": "[parameters('applicationId')]",
+	    "ida:Password": "[parameters('appPassword')]",
             "iKey": "[reference(concat('microsoft.insights/components/', variables('appInsightsName'))).InstrumentationKey]",
             "NotificationFromEmailAddress": "[parameters('notificationFromEmailAddress')]",
             "NotificationFromName": "Service Catalog",
