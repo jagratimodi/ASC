@@ -105,12 +105,6 @@
         "description": "ASC unique Id."
       }
     },
-    "packageUri": {
-      "type": "string",
-      "metadata": {
-        "description": "URL where build is kept."
-      }
-    },
     "repoUrl": {
       "type": "string"
     },
@@ -145,7 +139,7 @@
         "appServiceTier": "[parameters('appServiceTier')]",
         "workerSize": "[parameters('appServiceWorkerSize')]"
       },
-	  "tags": {
+      "tags": {
         "displayName": "AppServiceHostingPlan"
       }
     },
@@ -191,7 +185,7 @@
             "[concat('Microsoft.Storage/storageAccounts/', variables('updatedStorageAccountName'))]"
           ],
           "properties": {
-            "packageUri": "[parameters('packageUri')]"
+            "packageUri": "[concat(parameters('repoUrl'), '/raw/', parameters('branch'), '/build/package.zip')]"
           }
         },
         {
@@ -214,7 +208,7 @@
             "StorageAccountKey": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', variables('updatedStorageAccountName')), '2015-05-01-preview').key1]",
             "StorageAccountName": "[variables('updatedStorageAccountName')]",
             "SendGridEndPoint": "https://api.sendgrid.com",
-			"SendGridApiKey": "[parameters('sendGridApiKey')]",
+	    "SendGridApiKey": "[parameters('sendGridApiKey')]",
           }
         },
 	{
