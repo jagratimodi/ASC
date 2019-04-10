@@ -181,7 +181,7 @@
             "[concat('Microsoft.Storage/storageAccounts/', variables('updatedStorageAccountName'))]"
           ],
           "properties": {
-            "packageUri": "https://github.com/jagratimodi/ASC/raw/asc-portal-deploy/build/package.zip"
+            "packageUri": "https://github.com/jagratimodi/ASC/raw/asc-deploy/package.zip"
           }
         },
         {
