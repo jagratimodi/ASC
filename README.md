@@ -1,3 +1,4 @@
 # ARM Template Testing
-
-[![Deploy to Azure](https://azuredeploy.net/deploybutton.svg)](https://deploy.azure.com/?repository=https://github.com/jagratimodi/ASC/tree/asc-deploy?ptmpl=azuredeploy.parameters.json)
+<a href="https://azuredeploy.net/?repository=https://github.com/jagratimodi/ASC/tree/asc-deploy?ptmpl=azuredeploy.parameters.json" target="_blank">
+    <img src="http://azuredeploy.net/deploybutton.png"/>
+</a>
