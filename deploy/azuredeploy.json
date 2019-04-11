@@ -65,6 +65,7 @@
     },
     "newOrExisting": {
       "type": "string",
+      "defaultValue": "new",
       "allowedValues": [
         "new",
         "existing"
@@ -105,6 +106,13 @@
       "defaultValue": "[newGuid()]",
       "metadata": {
         "description": "ASC unique Id."
+      }
+    },
+    "packageUri": {
+      "type": "string",
+      "defaultValue": "https://github.com/jagratimodi/ASC/raw/asc-portal-deploy/Builds/ascpackage.zip",
+      "metadata": {
+        "description": "Package URL where build is present."
       }
     }
   },
@@ -181,7 +189,7 @@
             "[concat('Microsoft.Storage/storageAccounts/', variables('updatedStorageAccountName'))]"
           ],
           "properties": {
-            "packageUri": "https://github.com/jagratimodi/ASC/raw/asc-portal-deploy/Builds/ascpackage.zip"
+            "packageUri": "[parameters('packageUri')]"
           }
         },
         {
