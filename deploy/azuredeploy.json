@@ -101,13 +101,6 @@
         "description": "Send Grid API key."
       }
     },
-    "ascAppId": {
-      "type": "string",
-      "defaultValue": "[newGuid()]",
-      "metadata": {
-        "description": "ASC unique Id."
-      }
-    },
     "packageUri": {
       "type": "string",
       "defaultValue": "https://github.com/jagratimodi/ASC/raw/asc-portal-deploy/Builds/ascpackage.zip",
@@ -203,7 +196,7 @@
           ],
           "properties": {
             "AdminEmailAddress": "Admin email address",
-            "AscAppId": "[parameters('ascAppId')]",
+            "AscAppId": "[guid(subscription().subscriptionId)]",
 	    "ida:ClientID": "[parameters('applicationId')]",
 	    "ida:Password": "[parameters('appPassword')]",
             "iKey": "[reference(concat('microsoft.insights/components/', variables('appInsightsName'))).InstrumentationKey]",
